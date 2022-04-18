@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {
+  "Kerala": {
+    "Trissur": ["puddukkad", "nandikara", "kodakara", "irinjalakuda"],
+    "Kollam": ["Perinad", "Shakthikulangara.", "Thrikkadavoor", "Mulavana"],
+    "Ernakulam": ["Piravom", "Muvattupuzha.", "Koothattukulam", "Aluva"],
+    "Alappuzha ": ["Ambalappuzha", "Aryadu Thekku."],
+    "Thiruvananthapuram": ["Varkala", "Neyyattinkara.", "Nedumangadu", "Kattakada"]
+  },
+  "Tamil Nadu": {
+    "Coimbatore": ["Tatabad", "Sivananda Colony", "Town Hall"],
+    "Chennai": ["Avadi", "Tiruvottiyur ", "Pallavaram"]
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("state");
+  var topicSel = document.getElementById("District");
+  var chapterSel = document.getElementById("Place");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="aswin_'Travello template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{%  static 'styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{%  static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{%  static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{%  static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{%  static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{%  static 'styles/about.css' %}">
+<link rel="stylesheet" type="text/css" href="{%  static 'styles/about_responsive.css' %}">
+
+</head>
+<body style="min-height:100vh;">
+		<img   src="{%  static 'images/banner02.jpg' %}" alt="" width="1900;" height="500;">
+	</div>
+<div class="home_search">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="home_search_container">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<form action="{% url 'nikeapp:finish' %}" method="POST">
+    {% csrf_token %}
+    <h2>Booking</h2>
+    <input type="text" name="username" placeholder="Enter your username" required> <br>
+    <input type="text" name="firstname" placeholder=" Enter your firstname" required ><br>
+    <input type="text" name="lastname" placeholder="Enter your lastname" required ><br>
+    <input type="email" name="email" placeholder="Enter your email" required ><br>
+
+    <input type="tel" id="phone" name="phone" placeholder="498-348-3872"  required ><br>
+
+    <input type="text" name="Address" placeholder="Enter your Address" required ><br>
+<!--   <form name="form1" id="form1" action="/action_page.php">-->
+State: <select name="state" id="state">
+    <option value="" selected="selected">Select your State</option>
+
+  </select>
+  <br><br>
+District: <select name="District" id="District">
+    <option value="" selected="selected">Please select District</option>
+
+  </select>
+  <br><br>
+Place: <select name="Place" id="Place">
+    <option value="" selected="selected">Please select your branch place</option>
+  </select>
+  <br><br>
+ <div class="dropdown">
+
+
+                       Select your flower:<select style="width:180px;">
+
+                         <ol class="dropdown-menu">
+                             <option>Choose Your   flower </option>
+                          <option>Rose/--Rs40 </option>
+                          <option>Bluestar/--Rs30</option>
+                          <option> Bougainvillea/--Rs80 </option>
+                          <option> Blue Water Lily/--Rs100</option>
+                          <option> Blue Morning Glory/--Rs48</option>
+
+
+                              </ol>
+                              </select><br>
+
+  <label for="quantity">Quantity :</label>
+  <input type="number" id="quantity" name="quantity" min="1" max="20"><br>
+
+          </div>
+
+      <input type="submit" value="submit">
+   </form>
+<div  style="position:sticky;top:100%;background-color: #6495ED; height:60px;">
+    <p  style="padding-top:10px;font-size:14px;text-align: center;">&copy;  k tech pvt ltd.All rights reserved</p>
+</div>
+</body>
+</html>
+
